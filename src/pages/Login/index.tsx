@@ -114,7 +114,9 @@ export const Login = () => {
           </Button>
         </Grid>
 
-        <Grid w="100%" bg="white" paddingLeft="39px"></Grid>
+        <Grid w="100%" bg="white" paddingLeft="39px">
+          <Image src={BurguerKenzie} alt="BurguerKenzie" boxSize="200px" />
+        </Grid>
       </Flex>
     </Flex>
   );
