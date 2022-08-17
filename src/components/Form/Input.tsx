@@ -62,7 +62,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
 
   return (
     <FormControl>
-      {!!label && <FormLabel>Label</FormLabel>}
+      {!!label && <FormLabel>{label}</FormLabel>}
 
       <InputGroup flexDirection="column">
         {Icon && <InputRightElement></InputRightElement>}
@@ -77,9 +77,12 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           color={inputVariation[variation]}
           ref={ref}
           _placeholder={{ color: "gray.300" }}
+          h="60px"
           {...rest}
         />
-        {!!error && <FormErrorMessage></FormErrorMessage>}
+        {!!error && (
+          <FormErrorMessage color="negative">{error.message}</FormErrorMessage>
+        )}
       </InputGroup>
     </FormControl>
   );
