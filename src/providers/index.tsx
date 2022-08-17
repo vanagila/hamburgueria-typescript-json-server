@@ -7,5 +7,5 @@ interface AppProviderProps {
 }
 
 export const AppProvider = ({ children }: AppProviderProps) => {
-  <ChakraProvider theme={theme}>{children}</ChakraProvider>;
+  return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
 };
