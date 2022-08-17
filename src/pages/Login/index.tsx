@@ -1,6 +1,7 @@
 import BurguerKenzie from "../../assets/BurguerKenzie.svg";
+import { Input } from "../../components/Form/Input";
 
-import { Flex, Grid, Heading, Image, Input, VStack } from "@chakra-ui/react";
+import { Flex, Grid, Heading, Image, VStack } from "@chakra-ui/react";
 
 export const Login = () => {
   return (
@@ -23,8 +24,18 @@ export const Login = () => {
         >
           <Heading size="lg">Login</Heading>
           <VStack spacing="6" mt="5">
-            <Input placeholder="Seu email aqui"></Input>
-            <Input placeholder="Sua senha aqui"></Input>
+            <Input
+              name="name"
+              bg="gray.0"
+              _hover={{ bgColor: "white" }}
+              placeholder="Nome completo"
+            />
+            <Input
+              name="password"
+              bg="gray.0"
+              _hover={{ bgColor: "white" }}
+              placeholder="Sua senha"
+            />
           </VStack>
         </Grid>
 
