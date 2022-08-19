@@ -1,9 +1,11 @@
 import BurguerKenzie from "../../assets/BurguerKenzie.svg";
+import Ellipse from "../../assets/ellipse.svg";
 import { Input } from "../../components/Form/Input";
 
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { FiShoppingBag } from "react-icons/fi";
 
 import {
   Button,
@@ -14,6 +16,9 @@ import {
   VStack,
   Text,
   Box,
+  Icon,
+  HStack,
+  Center,
 } from "@chakra-ui/react";
 
 interface SignInData {
@@ -38,17 +43,17 @@ export const Login = () => {
   };
 
   return (
-    <Flex alignItems="center" h="100vh" bg="white">
+    <Flex alignItems="center" h={["auto", "auto", "100vh", "100vh"]} bg="white">
       <Flex
         w="100%"
         justifyContent="center"
-        flexDirection="row"
+        flexDirection={["column-reverse", "column-reverse", "row", "row"]}
         alignItems="center"
       >
         <Grid
+          w={["383px", "383px", "500px"]}
           as="form"
           onSubmit={handleSubmit(handleSigIn)}
-          w="100%"
           padding="26px 24px"
           border="3px solid"
           borderColor="gray.0"
@@ -114,8 +119,37 @@ export const Login = () => {
           </Button>
         </Grid>
 
-        <Grid w="100%" bg="white" paddingLeft="39px">
-          <Image src={BurguerKenzie} alt="BurguerKenzie" boxSize="200px" />
+        <Grid bg="white" paddingLeft={[null, null, "39px", "39px"]}>
+          <Image
+            src={BurguerKenzie}
+            alt="BurguerKenzie"
+            w="243px"
+            h="60px"
+            mb="5"
+          />
+
+          <HStack
+            direction="row"
+            w="100%"
+            padding="16px 14px"
+            spacing="19px"
+            border="1px solid"
+            borderColor="gray.100"
+            borderRadius="md"
+            bg="white"
+            shadow="md"
+          >
+            <Center boxSize="60px" bgColor="primary.50" borderRadius="md">
+              <Icon as={FiShoppingBag} color="primary.100" w="24px" h="24px" />
+            </Center>
+            <Text fontSize="sm" fontWeight="500" color="gray.300">
+              A vida é como um sanduíche, é preciso
+              <br /> recheá-la com os <b>melhores</b>
+              <br /> ingredientes.
+            </Text>
+          </HStack>
+
+          <Image src={Ellipse} alt="ellipse" mt="7" />
         </Grid>
       </Flex>
     </Flex>
