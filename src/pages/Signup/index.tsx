@@ -78,7 +78,7 @@ export const Signup = () => {
             border="1px solid"
             borderColor="gray.100"
             borderRadius="md"
-            bg="white"
+            bgColor="white"
             shadow="md"
           >
             <Center boxSize="60px" bgColor="primary.50" borderRadius="md">
@@ -102,7 +102,7 @@ export const Signup = () => {
           border="3px solid"
           borderColor="gray.0"
           borderRadius="md"
-          bg="white"
+          bgColor="white"
           shadow="md"
         >
           <Flex justifyContent="space-between">
@@ -131,7 +131,7 @@ export const Signup = () => {
             <Box w="100%">
               <Input
                 type="email"
-                bg="gray.0"
+                bgColor="gray.0"
                 _hover={{ bgColor: "white" }}
                 placeholder="Seu email"
                 label="Email"
@@ -146,7 +146,7 @@ export const Signup = () => {
             </Box>
             <Input
               type="password"
-              bg="gray.0"
+              bgColor="gray.0"
               _hover={{ bgColor: "white" }}
               placeholder="Sua senha"
               label="Senha"
@@ -156,7 +156,7 @@ export const Signup = () => {
 
             <Input
               type="password"
-              bg="gray.0"
+              bgColor="gray.0"
               _hover={{ bgColor: "white" }}
               placeholder="Confirmar senha"
               label="Confirmar Senha"
