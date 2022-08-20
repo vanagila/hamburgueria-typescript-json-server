@@ -58,7 +58,7 @@ export const Login = () => {
           border="3px solid"
           borderColor="gray.0"
           borderRadius="md"
-          bg="white"
+          bgColor="white"
           shadow="md"
         >
           <Heading as="h3" size="lg">
@@ -68,7 +68,7 @@ export const Login = () => {
             <Box w="100%">
               <Input
                 type="email"
-                bg="gray.0"
+                bgColor="gray.0"
                 _hover={{ bgColor: "white" }}
                 placeholder="Seu email"
                 label="Email"
@@ -84,7 +84,7 @@ export const Login = () => {
 
             <Input
               type="password"
-              bg="gray.0"
+              bgColor="gray.0"
               _hover={{ bgColor: "white" }}
               placeholder="Sua senha"
               label="Senha"
@@ -138,7 +138,7 @@ export const Login = () => {
             border="1px solid"
             borderColor="gray.100"
             borderRadius="md"
-            bg="white"
+            bgColor="white"
             shadow="md"
           >
             <Center boxSize="60px" bgColor="primary.50" borderRadius="md">
