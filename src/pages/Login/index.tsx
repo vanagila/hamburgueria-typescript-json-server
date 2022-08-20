@@ -61,7 +61,9 @@ export const Login = () => {
           bg="white"
           shadow="md"
         >
-          <Heading size="lg">Login</Heading>
+          <Heading as="h3" size="lg">
+            Login
+          </Heading>
           <VStack spacing="6" mt="5">
             <Box w="100%">
               <Input
