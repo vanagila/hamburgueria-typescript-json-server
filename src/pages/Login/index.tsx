@@ -43,7 +43,11 @@ export const Login = () => {
   };
 
   return (
-    <Flex alignItems="center" h={["auto", "auto", "100vh", "100vh"]} bg="white">
+    <Flex
+      alignItems="center"
+      h={["auto", "auto", "100vh", "100vh"]}
+      bgColor="white"
+    >
       <Flex
         w="100%"
         justifyContent="center"
