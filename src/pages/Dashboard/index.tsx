@@ -17,11 +17,9 @@ export const Dashboard = () => {
         flexWrap="wrap"
         w="100%"
         gap={10}
-        // templateColumns="repeat(auto-fill, minmax(480px, 1fr))"
-        // gap={5}
       >
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((_) => (
-          <Card />
+        {products.map((product, id) => (
+          <Card product={product} key={id} />
         ))}
       </Grid>
     </>
