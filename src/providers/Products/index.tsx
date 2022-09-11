@@ -9,10 +9,6 @@ import {
 
 import { api } from "../../services/api";
 
-interface ProductProps {
-  children: ReactNode;
-}
-
 interface Product {
   image: string;
   title: string;
@@ -21,9 +17,13 @@ interface Product {
   id: number;
 }
 
+interface ProductProps {
+  children: ReactNode;
+}
+
 interface ProductProviderData {
   products: Product[];
-  loadProducts: (product: Product) => void;
+  loadProducts: (product: Product) => Promise<void>;
 }
 
 const ProductContext = createContext<ProductProviderData>(
@@ -36,15 +36,16 @@ export const ProductProvider = ({ children }: ProductProps) => {
   async function loadProducts() {
     await api
       .get("/products")
-      .then((response: AxiosResponse<Product>) => {
-        setProducts([...products, response.data]);
+      .then((response) => {
+        setProducts([...products, ...response.data]);
       })
       .catch((err) => console.log(err));
   }
 
+  //ver useCallback
+
   useEffect(() => {
     loadProducts();
-    console.log(products);
   }, []);
 
   return (
