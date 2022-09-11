@@ -1,10 +1,11 @@
-import { AxiosResponse } from "axios";
 import {
   createContext,
   useContext,
   useState,
   ReactNode,
   useEffect,
+  Dispatch,
+  SetStateAction,
 } from "react";
 
 import { api } from "../../services/api";
@@ -23,7 +24,10 @@ interface ProductProps {
 
 interface ProductProviderData {
   products: Product[];
+  inputProduct: string;
+  setInputProduct: Dispatch<SetStateAction<string>>;
   loadProducts: (product: Product) => Promise<void>;
+  searchProduct: (inputProduct: string) => void;
 }
 
 const ProductContext = createContext<ProductProviderData>(
@@ -32,6 +36,7 @@ const ProductContext = createContext<ProductProviderData>(
 
 export const ProductProvider = ({ children }: ProductProps) => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [inputProduct, setInputProduct] = useState<string>("");
 
   async function loadProducts() {
     await api
@@ -42,14 +47,28 @@ export const ProductProvider = ({ children }: ProductProps) => {
       .catch((err) => console.log(err));
   }
 
-  //ver useCallback
-
   useEffect(() => {
     loadProducts();
   }, []);
 
+  const searchProduct = (inputProduct: string) => {
+    inputProduct = inputProduct.toLocaleLowerCase();
+    const filteredProduct = products.filter(
+      (product) => product.title.toLocaleLowerCase() === inputProduct
+    );
+    setProducts(filteredProduct);
+  };
+
   return (
-    <ProductContext.Provider value={{ products, loadProducts }}>
+    <ProductContext.Provider
+      value={{
+        products,
+        inputProduct,
+        setInputProduct,
+        loadProducts,
+        searchProduct,
+      }}
+    >
       {children}
     </ProductContext.Provider>
   );

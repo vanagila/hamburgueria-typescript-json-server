@@ -3,6 +3,8 @@ import { Input } from "../Form/Input";
 import { EmptyCartModal } from "../EmptyCartModal";
 import { CartModal } from "../CartModal";
 
+import { useProducts } from "../../providers/Products";
+
 import { FaSearch } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
@@ -28,6 +30,8 @@ export const Header = () => {
     onClose: onCartClose,
   } = useDisclosure();
 
+  const { inputProduct, setInputProduct, searchProduct } = useProducts();
+
   return (
     <>
       <EmptyCartModal isOpen={isEmptyCartOpen} onClose={onEmptyCartClose} />
@@ -52,9 +56,11 @@ export const Header = () => {
               h="60px"
               bgColor="white"
               borderRadius="lg"
+              onChange={(e) => setInputProduct(e.target.value)}
             />
             <InputRightElement paddingRight="10">
               <IconButton
+                onClick={() => searchProduct(inputProduct)}
                 aria-label="Search database"
                 icon={<FaSearch />}
                 color="white"
