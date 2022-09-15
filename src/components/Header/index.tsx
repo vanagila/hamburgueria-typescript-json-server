@@ -61,7 +61,7 @@ export const Header = () => {
             <InputRightElement paddingRight="10">
               <IconButton
                 onClick={() => searchProduct(inputProduct)}
-                aria-label="Search database"
+                aria-label="Search"
                 icon={<FaSearch />}
                 color="white"
                 bgColor="primary.100"
