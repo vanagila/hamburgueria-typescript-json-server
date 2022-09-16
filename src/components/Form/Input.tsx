@@ -68,7 +68,6 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         {Icon && <InputRightElement></InputRightElement>}
 
         <ChakraInput
-          id={name}
           name={name}
           onChangeCapture={(e) => setValue(e.currentTarget.value)}
           onBlurCapture={handleInputBlur}

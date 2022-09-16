@@ -1,6 +1,7 @@
 import BurguerKenzie from "../../assets/BurguerKenzie.svg";
 import Ellipse from "../../assets/ellipse.svg";
 import { Input } from "../../components/Form/Input";
+import { api } from "../../services/api";
 
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -38,7 +39,8 @@ export const Signup = () => {
     confirmPassword: yup
       .string()
       .required("Campo obrigatório")
-      .oneOf([yup.ref("password")], "Senhas não conferem"),
+      .oneOf([yup.ref("password")], "Senhas não conferem")
+      .required("Campo obrigatório"),
   });
 
   const {
@@ -46,10 +48,6 @@ export const Signup = () => {
     register,
     handleSubmit,
   } = useForm<SignupData>({ resolver: yupResolver(signupSchema) });
-
-  const handleSigIn = (data: SignupData) => {
-    console.log(data);
-  };
 
   const history = useHistory();
 
@@ -97,7 +95,6 @@ export const Signup = () => {
         <Grid
           w={["383px", "383px", "500px"]}
           as="form"
-          onSubmit={handleSubmit(handleSigIn)}
           padding="26px 24px"
           border="3px solid"
           borderColor="gray.0"
@@ -112,7 +109,7 @@ export const Signup = () => {
             <Button
               variant="link"
               color="gray.300"
-              onClick={() => history.push("/cadastrar")}
+              onClick={() => history.push("/")}
             >
               Retornar para o login
             </Button>
@@ -125,8 +122,8 @@ export const Signup = () => {
               _hover={{ bgColor: "white" }}
               placeholder="Seu nome"
               label="Nome"
-              error={errors.password}
-              {...register("password")}
+              error={errors.name}
+              {...register("name")}
             />
             <Box w="100%">
               <Input
@@ -161,11 +158,12 @@ export const Signup = () => {
               placeholder="Confirmar senha"
               label="Confirmar Senha"
               error={errors.confirmPassword}
-              {...register("password")}
+              {...register("confirmPassword")}
             />
           </VStack>
 
           <Button
+            type="submit"
             mt="5"
             bgColor="gray.0"
             color="gray.300"
