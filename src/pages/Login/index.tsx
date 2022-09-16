@@ -5,6 +5,7 @@ import { Input } from "../../components/Form/Input";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useHistory } from "react-router-dom";
 import { FiShoppingBag } from "react-icons/fi";
 
 import {
@@ -37,6 +38,8 @@ export const Login = () => {
     register,
     handleSubmit,
   } = useForm<SignInData>({ resolver: yupResolver(signInSchema) });
+
+  const history = useHistory();
 
   const handleSigIn = (data: SignInData) => {
     console.log(data);
@@ -120,6 +123,7 @@ export const Login = () => {
             _hover={{ bgColor: "gray.300", color: "gray.100" }}
             h="60px"
             size="md"
+            onClick={() => history.push("/cadastrar")}
           >
             Cadastrar
           </Button>
