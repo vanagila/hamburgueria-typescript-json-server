@@ -1,6 +1,7 @@
 import BurguerKenzie from "../../assets/BurguerKenzie.svg";
 import Ellipse from "../../assets/ellipse.svg";
 import { Input } from "../../components/Form/Input";
+import { useUser } from "../../providers/User";
 
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -28,6 +29,8 @@ interface SignInData {
 }
 
 export const Login = () => {
+  const { signIn } = useUser();
+
   const signInSchema = yup.object().shape({
     email: yup.string().required("Campo obrigatório").email("Email inválido"),
     password: yup.string().required("Campo obrigatório"),
@@ -43,6 +46,7 @@ export const Login = () => {
 
   const handleSigIn = (data: SignInData) => {
     console.log(data);
+    signIn(data);
   };
 
   return (
