@@ -1,12 +1,13 @@
 import BurguerKenzie from "../../assets/BurguerKenzie.svg";
 import Ellipse from "../../assets/ellipse.svg";
 import { Input } from "../../components/Form/Input";
-import { api } from "../../services/api";
+import { useUser } from "../../providers/User";
 
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
+
 import { FiShoppingBag } from "react-icons/fi";
 
 import {
@@ -24,7 +25,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 
-interface SignupData {
+interface SignUpData {
   name: string;
   email: string;
   password: string;
@@ -32,6 +33,8 @@ interface SignupData {
 }
 
 export const Signup = () => {
+  const { signUp } = useUser();
+
   const signupSchema = yup.object().shape({
     name: yup.string().required("Campo obrigatório"),
     email: yup.string().required("Campo obrigatório").email("Email inválido"),
@@ -47,9 +50,13 @@ export const Signup = () => {
     formState: { errors },
     register,
     handleSubmit,
-  } = useForm<SignupData>({ resolver: yupResolver(signupSchema) });
+  } = useForm<SignUpData>({ resolver: yupResolver(signupSchema) });
 
   const history = useHistory();
+
+  const handleClick = (data: SignUpData) => {
+    signUp(data);
+  };
 
   return (
     <Flex alignItems="center" h={["auto", "auto", "100vh", "100vh"]} bg="white">
@@ -95,6 +102,7 @@ export const Signup = () => {
         <Grid
           w={["383px", "383px", "500px"]}
           as="form"
+          onSubmit={handleSubmit(handleClick)}
           padding="26px 24px"
           border="3px solid"
           borderColor="gray.0"

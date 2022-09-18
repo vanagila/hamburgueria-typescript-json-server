@@ -18,6 +18,7 @@ interface SignUpData {
   name?: string;
   email: string;
   password: string;
+  id?: number;
 }
 
 interface SignInData {
@@ -29,6 +30,7 @@ interface UserProviderData {
   userId: string;
   token: string;
   setToken: Dispatch<SetStateAction<string>>;
+  signUp: (data: SignUpData) => void;
   signIn: (data: SignInData) => void;
 }
 
@@ -39,6 +41,16 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const [userId, setUserId] = useState(localStorage.getItem("@BK/id") || "");
 
   const history = useHistory();
+
+  const signUp = (data: SignUpData) => {
+    api
+      .post("/register", data)
+      .then((res) => {
+        history.push("/");
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
 
   const signIn = (data: SignInData) => {
     api
@@ -54,7 +66,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   };
 
   return (
-    <UserContext.Provider value={{ token, userId, setToken, signIn }}>
+    <UserContext.Provider value={{ token, userId, setToken, signIn, signUp }}>
       {children}
     </UserContext.Provider>
   );
