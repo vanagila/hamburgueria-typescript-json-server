@@ -1,4 +1,5 @@
 import { api } from "../../services/api";
+import { createStandaloneToast } from "@chakra-ui/toast";
 
 import {
   createContext,
@@ -32,6 +33,7 @@ interface UserProviderData {
   setToken: Dispatch<SetStateAction<string>>;
   signUp: (data: SignUpData) => void;
   signIn: (data: SignInData) => void;
+  logOut: () => void;
 }
 
 const UserContext = createContext<UserProviderData>({} as UserProviderData);
@@ -42,14 +44,32 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   const history = useHistory();
 
+  const { ToastContainer, toast } = createStandaloneToast();
+
   const signUp = (data: SignUpData) => {
     api
       .post("/register", data)
       .then((res) => {
         history.push("/");
-        console.log(res.data);
+        toast({
+          title: "Conta criada com sucesso",
+          description: "Agora faça login",
+          status: "success",
+          duration: 3000,
+          position: "top-right",
+          isClosable: true,
+        });
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        toast({
+          title: "Não foi possível fazer o cadastro",
+          description: "Tente outro email",
+          status: "error",
+          duration: 3000,
+          position: "top-right",
+          isClosable: true,
+        })
+      );
   };
 
   const signIn = (data: SignInData) => {
@@ -61,12 +81,36 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         setUserId(res.data.user.id);
         localStorage.setItem("@BK/id", res.data.user.id);
         history.push("/dashboard");
+        toast({
+          title: "Login feito com sucesso",
+          description: "Vamos as compras",
+          status: "success",
+          duration: 3000,
+          position: "top-right",
+          isClosable: true,
+        });
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        toast({
+          title: "Não foi pssível fazer o login",
+          description: "Verifique seu email e senha",
+          status: "error",
+          duration: 3000,
+          position: "top-right",
+          isClosable: true,
+        })
+      );
+  };
+
+  const logOut = () => {
+    localStorage.clear();
+    history.push("/");
   };
 
   return (
-    <UserContext.Provider value={{ token, userId, setToken, signIn, signUp }}>
+    <UserContext.Provider
+      value={{ token, userId, setToken, signIn, signUp, logOut }}
+    >
       {children}
     </UserContext.Provider>
   );
