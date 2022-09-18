@@ -22,7 +22,6 @@ import {
   Icon,
   HStack,
   Center,
-  Link,
 } from "@chakra-ui/react";
 
 interface SignUpData {
@@ -38,7 +37,10 @@ export const Signup = () => {
   const signupSchema = yup.object().shape({
     name: yup.string().required("Campo obrigatório"),
     email: yup.string().required("Campo obrigatório").email("Email inválido"),
-    password: yup.string().required("Campo obrigatório"),
+    password: yup
+      .string()
+      .min(6, "a senha deve possuir ao menos 6 caracteres")
+      .required("Campo obrigatório"),
     confirmPassword: yup
       .string()
       .required("Campo obrigatório")
@@ -95,7 +97,6 @@ export const Signup = () => {
               <br /> ingredientes.
             </Text>
           </HStack>
-
           <Image src={Ellipse} alt="ellipse" mt="7" />
         </Grid>
 
