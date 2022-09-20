@@ -30,7 +30,6 @@ export const Header = () => {
     onOpen: onCartOpen,
     onClose: onCartClose,
   } = useDisclosure();
-
   const { inputProduct, setInputProduct, searchProduct } = useProducts();
   const { logOut } = useUser();
 
