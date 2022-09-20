@@ -24,7 +24,9 @@ interface ProductProps {
 
 interface ProductProviderData {
   products: Product[];
+  displayProducts: Product[];
   inputProduct: string;
+  loading: boolean;
   setInputProduct: Dispatch<SetStateAction<string>>;
   loadProducts: (product: Product) => Promise<void>;
   searchProduct: (inputProduct: string) => void;
@@ -36,13 +38,16 @@ const ProductContext = createContext<ProductProviderData>(
 
 export const ProductProvider = ({ children }: ProductProps) => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [displayProducts, setDisplayProducts] = useState<Product[]>([]);
   const [inputProduct, setInputProduct] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   async function loadProducts() {
     await api
       .get("/products")
       .then((response) => {
         setProducts([...products, ...response.data]);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   }
@@ -53,17 +58,24 @@ export const ProductProvider = ({ children }: ProductProps) => {
 
   const searchProduct = (inputProduct: string) => {
     inputProduct = inputProduct.toLocaleLowerCase();
-    const filteredProduct = products.filter(
-      (product) => product.title.toLocaleLowerCase() === inputProduct
-    );
-    setProducts(filteredProduct);
+    const filteredProduct = products.filter((product) => {
+      if (
+        product.title.toLocaleLowerCase().includes(inputProduct) ||
+        product.category.toLocaleLowerCase().includes(inputProduct)
+      ) {
+        return product;
+      }
+    });
+    setDisplayProducts(filteredProduct);
   };
 
   return (
     <ProductContext.Provider
       value={{
         products,
+        loading,
         inputProduct,
+        displayProducts,
         setInputProduct,
         loadProducts,
         searchProduct,

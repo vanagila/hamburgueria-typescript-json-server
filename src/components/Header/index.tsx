@@ -30,7 +30,7 @@ export const Header = () => {
     onClose: onCartClose,
   } = useDisclosure();
 
-  const { inputProduct, setInputProduct, searchProduct } = useProducts();
+  const { inputProduct, searchProduct, setInputProduct } = useProducts();
 
   return (
     <>

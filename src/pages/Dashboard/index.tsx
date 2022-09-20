@@ -2,14 +2,15 @@ import { Header } from "../../components/Header";
 import { Card } from "../../components/Card";
 
 import { useProducts } from "../../providers/Products";
-import { Grid } from "@chakra-ui/react";
+import { Grid, Skeleton } from "@chakra-ui/react";
 
 export const Dashboard = () => {
-  const { products } = useProducts();
+  const { loading, products, inputProduct, displayProducts } = useProducts();
 
   return (
     <>
       <Header />
+
       <Grid
         display="flex"
         justifyContent="center"
@@ -18,9 +19,21 @@ export const Dashboard = () => {
         w="100%"
         gap={10}
       >
-        {products.map((product, id) => (
-          <Card product={product} key={id} />
-        ))}
+        {loading ? (
+          <Skeleton
+            startColor="primary.100"
+            endColor="primary.50"
+            height="20px"
+          />
+        ) : inputProduct === "" ? (
+          products.map((product, id) => {
+            return <Card product={product} key={id} />;
+          })
+        ) : (
+          displayProducts.map((product, id) => {
+            return <Card product={product} key={id} />;
+          })
+        )}
       </Grid>
     </>
   );
