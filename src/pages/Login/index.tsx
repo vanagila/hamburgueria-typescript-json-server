@@ -134,13 +134,7 @@ export const Login = () => {
         </Grid>
 
         <Grid bg="white" paddingLeft={[null, null, "39px", "39px"]}>
-          <Image
-            src={BurguerKenzie}
-            alt="BurguerKenzie"
-            w="243px"
-            h="60px"
-            mb="5"
-          />
+          <Image src={BurguerKenzie} alt="BurguerKenzie" w="243px" h="60px" />
 
           <HStack
             direction="row"
@@ -152,6 +146,7 @@ export const Login = () => {
             borderRadius="md"
             bgColor="white"
             shadow="md"
+            mb="3"
           >
             <Center boxSize="60px" bgColor="primary.50" borderRadius="md">
               <Icon as={FiShoppingBag} color="primary.100" w="24px" h="24px" />
@@ -163,7 +158,12 @@ export const Login = () => {
             </Text>
           </HStack>
 
-          <Image src={Ellipse} alt="ellipse" mt="7" />
+          <Image
+            src={Ellipse}
+            alt="ellipse"
+            mt="7"
+            display={["none", "block"]}
+          />
         </Grid>
       </Flex>
     </Flex>
