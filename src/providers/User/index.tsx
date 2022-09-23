@@ -1,5 +1,7 @@
 import { api } from "../../services/api";
 
+import { createStandaloneToast } from "@chakra-ui/toast";
+
 import {
   createContext,
   ReactNode,
@@ -40,29 +42,64 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const [token, setToken] = useState(localStorage.getItem("@BK/token") || "");
   const [userId, setUserId] = useState(localStorage.getItem("@BK/id") || "");
 
+  const { toast } = createStandaloneToast();
+
   const history = useHistory();
 
   const signUp = (data: SignUpData) => {
     api
       .post("/register", data)
       .then((res) => {
+        toast({
+          title: "Cadastro feito com sucesso",
+          description: "Agora faça login",
+          status: "success",
+          duration: 3000,
+          position: "top",
+          isClosable: true,
+        });
         history.push("/");
-        console.log(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        toast({
+          title: "Algo deu errado",
+          description: "Verifique o email e tente novamente",
+          status: "error",
+          duration: 3000,
+          position: "top",
+          isClosable: true,
+        })
+      );
   };
 
   const signIn = (data: SignInData) => {
     api
       .post("/login", data)
       .then((res) => {
+        toast({
+          title: "Login feito com sucesso",
+          description: "Vamos às compras",
+          status: "success",
+          duration: 3000,
+          position: "top",
+          isClosable: true,
+        });
         setToken(res.data.accessToken);
         localStorage.setItem("@BK/token", res.data.accessToken);
         setUserId(res.data.user.id);
         localStorage.setItem("@BK/id", res.data.user.id);
         history.push("/dashboard");
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        toast({
+          title: "Algo deu errado",
+          description: "Verifique seu email e senha e tente novamente",
+          status: "error",
+          duration: 3000,
+          position: "top",
+          isClosable: true,
+        })
+      );
   };
 
   return (
