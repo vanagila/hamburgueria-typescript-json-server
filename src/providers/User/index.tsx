@@ -44,29 +44,29 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   const history = useHistory();
 
-  const { ToastContainer, toast } = createStandaloneToast();
+  const { toast } = createStandaloneToast();
 
   const signUp = (data: SignUpData) => {
     api
       .post("/register", data)
       .then((res) => {
-        history.push("/");
         toast({
           title: "Conta criada com sucesso",
           description: "Agora faça login",
           status: "success",
           duration: 3000,
-          position: "top-right",
+          position: "top",
           isClosable: true,
         });
+        history.push("/");
       })
       .catch((err) =>
         toast({
-          title: "Não foi possível fazer o cadastro",
-          description: "Tente outro email",
+          title: "Algo deu errado",
+          description: "Confira seu email",
           status: "error",
           duration: 3000,
-          position: "top-right",
+          position: "top",
           isClosable: true,
         })
       );
@@ -83,16 +83,16 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         history.push("/dashboard");
         toast({
           title: "Login feito com sucesso",
-          description: "Vamos as compras",
+          description: "Vamos às compras",
           status: "success",
           duration: 3000,
-          position: "top-right",
+          position: "top",
           isClosable: true,
         });
       })
       .catch((err) =>
         toast({
-          title: "Não foi pssível fazer o login",
+          title: "Algo deu errado",
           description: "Verifique seu email e senha",
           status: "error",
           duration: 3000,
@@ -103,6 +103,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   };
 
   const logOut = () => {
+    setToken("");
     localStorage.clear();
     history.push("/");
   };
