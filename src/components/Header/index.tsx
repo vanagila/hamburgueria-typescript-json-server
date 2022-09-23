@@ -29,8 +29,7 @@ export const Header = () => {
     onOpen: onCartOpen,
     onClose: onCartClose,
   } = useDisclosure();
-
-  const { inputProduct, searchProduct, setInputProduct } = useProducts();
+  const { inputProduct, setInputProduct, searchProduct } = useProducts();
 
   return (
     <>

@@ -1,7 +1,5 @@
 import { api } from "../../services/api";
 
-import { createStandaloneToast } from "@chakra-ui/toast";
-
 import {
   createContext,
   ReactNode,
@@ -11,6 +9,7 @@ import {
   SetStateAction,
 } from "react";
 import { useHistory } from "react-router-dom";
+import { createStandaloneToast } from "@chakra-ui/toast";
 
 interface UserProviderProps {
   children: ReactNode;
@@ -34,6 +33,7 @@ interface UserProviderData {
   setToken: Dispatch<SetStateAction<string>>;
   signUp: (data: SignUpData) => void;
   signIn: (data: SignInData) => void;
+  logOut: () => void;
 }
 
 const UserContext = createContext<UserProviderData>({} as UserProviderData);
@@ -102,8 +102,16 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       );
   };
 
+  const logOut = () => {
+    localStorage.clear();
+    setToken("");
+    history.push("/");
+  };
+
   return (
-    <UserContext.Provider value={{ token, userId, setToken, signIn, signUp }}>
+    <UserContext.Provider
+      value={{ token, userId, setToken, signIn, signUp, logOut }}
+    >
       {children}
     </UserContext.Provider>
   );
