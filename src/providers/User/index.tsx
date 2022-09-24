@@ -43,7 +43,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const [userId, setUserId] = useState(localStorage.getItem("@BK/id") || "");
 
   const { toast } = createStandaloneToast();
-
   const history = useHistory();
 
   const signUp = (data: SignUpData) => {
@@ -103,6 +102,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   };
 
   const logOut = () => {
+    setToken("");
     localStorage.clear();
     setToken("");
     history.push("/");

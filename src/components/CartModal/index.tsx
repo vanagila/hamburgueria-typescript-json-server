@@ -1,7 +1,6 @@
 import {
   Box,
   Center,
-  Circle,
   Flex,
   Heading,
   Modal,
@@ -14,7 +13,6 @@ import {
   Image,
   Button,
   IconButton,
-  Container,
   Square,
   ModalFooter,
 } from "@chakra-ui/react";

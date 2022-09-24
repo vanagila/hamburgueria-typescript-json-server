@@ -12,11 +12,13 @@ export const Dashboard = () => {
       <Header />
 
       <Grid
+        overflowX="auto"
         display="flex"
-        justifyContent="center"
+        justifyContent={["normal", "normal", "center"]}
+        flexWrap={["nowrap", "nowrap", "wrap"]}
         mt="5"
-        flexWrap="wrap"
-        w="100%"
+        ml={["5", "5", "none"]}
+        mr={["5", "5", "none"]}
         gap={10}
       >
         {loading ? (
