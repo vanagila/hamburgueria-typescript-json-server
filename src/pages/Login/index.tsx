@@ -162,7 +162,7 @@ export const Login = () => {
             src={Ellipse}
             alt="ellipse"
             mt="7"
-            display={["none", "block"]}
+            display={["none", "none", "block"]}
           />
         </Grid>
       </Flex>

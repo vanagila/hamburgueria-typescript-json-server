@@ -15,7 +15,7 @@ interface CardProps {
 export const Card = ({ product }: CardProps) => {
   return (
     <Box
-      w="290px"
+      minW="290px"
       bgColor="gray.0"
       border="2px solid"
       borderColor="gray.100"
