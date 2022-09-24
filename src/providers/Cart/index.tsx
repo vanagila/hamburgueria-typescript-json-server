@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { api } from "../../services/api";
 
 interface CartProviderProps {
@@ -14,27 +14,50 @@ interface Cart {
 }
 
 interface CartProviderData {
-  /*tudo que for no value */
+  cartProducts: Cart[];
+  userCart: (userId: number, token: string) => void;
+  addProduct: (userId: number, token: string, data: Cart) => void;
 }
 
 const CartContext = createContext<CartProviderData>({} as CartProviderData);
 
 export const CartProvider = ({ children }: CartProviderProps) => {
-  const [cart, setCart] = useState<Cart[]>([] as Cart[]);
+  const [cartProducts, setCartProducts] = useState<Cart[]>([] as Cart[]);
 
-  const getUserCart = (userId: number, token: string) => {
+  const userCart = (userId: number, token: string) => {
     api
       .get(`/cart?userId=${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => setCart(res.data))
+      .then((res) => setCartProducts(res.data))
       .catch((err) => console.log(err));
   };
 
-  const addProductOnCart = (userId: number, token: string, data: Cart) => {
+  const addProduct = (userId: number, token: string, data: Cart) => {
     const newData = { ...data, userId };
-    api.post(`/cart`);
+    if (
+      cartProducts.filter((item) => item.title === newData.title).length > 0
+    ) {
+      return;
+    }
+    api
+      .post(`/cart`, newData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        userCart(userId, token);
+        console.log(userCart);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  return <CartContext.Provider value={{}}>{children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider value={{ cartProducts, addProduct, userCart }}>
+      {children}
+    </CartContext.Provider>
+  );
 };
+
+export const useCart = () => useContext(CartContext);
