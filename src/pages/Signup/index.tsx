@@ -97,7 +97,12 @@ export const Signup = () => {
               <br /> ingredientes.
             </Text>
           </HStack>
-          <Image src={Ellipse} alt="ellipse" mt="7" />
+          <Image
+            src={Ellipse}
+            alt="ellipse"
+            mt="7"
+            display={["none", "none", "block"]}
+          />
         </Grid>
 
         <Grid
