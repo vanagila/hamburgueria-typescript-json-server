@@ -39,13 +39,16 @@ export const Header = () => {
       <CartModal isOpen={isCartOpen} onClose={onCartClose} />
       <Flex
         display="flex"
-        justifyContent="space-between"
+        flexDirection={["column", "column", "row"]}
+        justifyContent={["none", "none", "space-between"]}
         alignItems="center"
         bgColor="gray.0"
         w="100%"
-        h="80px"
-        paddingLeft="115px"
-        paddingRight="115px"
+        h={["90px", "110px", "80px"]}
+        paddingLeft={["18px", "18px", "115px"]}
+        paddingRight={["18px", "18px", "115px"]}
+        paddingTop={["5px", "none"]}
+        gap={[2, "none"]}
       >
         <Image src={BurguerKenzie} alt="BurguerKenzie" />
 
@@ -53,13 +56,13 @@ export const Header = () => {
           <InputGroup>
             <Input
               placeholder="Digitar Pesquisa"
-              w="365px"
-              h="60px"
+              w={["250px", "365px"]}
+              h={["50px", "60px"]}
               bgColor="white"
               borderRadius="lg"
               onChange={(e) => setInputProduct(e.target.value)}
             />
-            <InputRightElement paddingRight="10">
+            <InputRightElement paddingRight="3" top={["1.5", "2.5"]}>
               <IconButton
                 onClick={() => searchProduct(inputProduct)}
                 aria-label="Search"
