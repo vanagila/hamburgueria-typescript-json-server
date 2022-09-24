@@ -4,7 +4,6 @@ import { EmptyCartModal } from "../EmptyCartModal";
 import { CartModal } from "../CartModal";
 
 import { useProducts } from "../../providers/Products";
-import { useUser } from "../../providers/User";
 
 import { FaSearch } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
@@ -31,7 +30,6 @@ export const Header = () => {
     onClose: onCartClose,
   } = useDisclosure();
   const { inputProduct, setInputProduct, searchProduct } = useProducts();
-  const { logOut } = useUser();
 
   return (
     <>
@@ -82,7 +80,6 @@ export const Header = () => {
             onClick={onCartOpen}
           />
           <IconButton
-            onClick={() => logOut()}
             aria-label="Search database"
             icon={<FaSignOutAlt />}
             variant="link"

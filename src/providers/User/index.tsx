@@ -1,5 +1,4 @@
 import { api } from "../../services/api";
-import { createStandaloneToast } from "@chakra-ui/toast";
 
 import {
   createContext,
@@ -10,6 +9,7 @@ import {
   SetStateAction,
 } from "react";
 import { useHistory } from "react-router-dom";
+import { createStandaloneToast } from "@chakra-ui/toast";
 
 interface UserProviderProps {
   children: ReactNode;
@@ -42,16 +42,15 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const [token, setToken] = useState(localStorage.getItem("@BK/token") || "");
   const [userId, setUserId] = useState(localStorage.getItem("@BK/id") || "");
 
-  const history = useHistory();
-
   const { toast } = createStandaloneToast();
+  const history = useHistory();
 
   const signUp = (data: SignUpData) => {
     api
       .post("/register", data)
       .then((res) => {
         toast({
-          title: "Conta criada com sucesso",
+          title: "Cadastro feito com sucesso",
           description: "Agora faça login",
           status: "success",
           duration: 3000,
@@ -63,7 +62,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       .catch((err) =>
         toast({
           title: "Algo deu errado",
-          description: "Confira seu email",
+          description: "Verifique o email e tente novamente",
           status: "error",
           duration: 3000,
           position: "top",
@@ -76,11 +75,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     api
       .post("/login", data)
       .then((res) => {
-        setToken(res.data.accessToken);
-        localStorage.setItem("@BK/token", res.data.accessToken);
-        setUserId(res.data.user.id);
-        localStorage.setItem("@BK/id", res.data.user.id);
-        history.push("/dashboard");
         toast({
           title: "Login feito com sucesso",
           description: "Vamos às compras",
@@ -89,14 +83,19 @@ export const UserProvider = ({ children }: UserProviderProps) => {
           position: "top",
           isClosable: true,
         });
+        setToken(res.data.accessToken);
+        localStorage.setItem("@BK/token", res.data.accessToken);
+        setUserId(res.data.user.id);
+        localStorage.setItem("@BK/id", res.data.user.id);
+        history.push("/dashboard");
       })
       .catch((err) =>
         toast({
           title: "Algo deu errado",
-          description: "Verifique seu email e senha",
+          description: "Verifique seu email e senha e tente novamente",
           status: "error",
           duration: 3000,
-          position: "top-right",
+          position: "top",
           isClosable: true,
         })
       );
@@ -105,6 +104,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const logOut = () => {
     setToken("");
     localStorage.clear();
+    setToken("");
     history.push("/");
   };
 
